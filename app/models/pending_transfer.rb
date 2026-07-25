@@ -31,13 +31,20 @@ class PendingTransfer < ApplicationRecord
   end
 
   def matches_request?(attributes)
-    currency_network_id == attributes.fetch(:currency_network).id &&
+      currency_network_id == attributes.fetch(:currency_network).id &&
       from_address.casecmp?(attributes.fetch(:from_address).to_s) &&
       to_address.casecmp?(attributes.fetch(:to_address).to_s) &&
-      value == attributes.fetch(:value) &&
-      max_fee == attributes.fetch(:max_fee) &&
+      value == persisted_decimal(:value, attributes.fetch(:value)) &&
+      max_fee == persisted_decimal(:max_fee, attributes.fetch(:max_fee)) &&
       fee_payer == attributes.fetch(:fee_payer) &&
       path == attributes.fetch(:path) &&
       extra_data == attributes.fetch(:extra_data)
+  end
+
+  private
+
+  def persisted_decimal(attribute, raw_value)
+    scale = self.class.columns_hash.fetch(attribute.to_s).scale
+    BigDecimal(raw_value.to_s).round(scale)
   end
 end

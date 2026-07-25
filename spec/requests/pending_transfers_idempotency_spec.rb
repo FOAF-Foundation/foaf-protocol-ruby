@@ -43,6 +43,20 @@ RSpec.describe "Pending transfer idempotency", type: :request do
     expect(PendingTransfer.where(idempotency_key: idempotency_key).count).to eq(1)
   end
 
+  it "treats a retried sub-cent value as the same persisted decimal intent" do
+    precise_payload = payload.merge(value: "7.505")
+    post "/api/v1/pending_transfers", params: precise_payload, as: :json
+    first = response.parsed_body
+
+    expect(response).to have_http_status(:created)
+
+    post "/api/v1/pending_transfers", params: precise_payload, as: :json
+
+    expect(response).to have_http_status(:ok)
+    expect(response.parsed_body.fetch("id")).to eq(first.fetch("id"))
+    expect(PendingTransfer.where(idempotency_key: idempotency_key).count).to eq(1)
+  end
+
   it "rejects reuse of an idempotency key for different wire intent" do
     post "/api/v1/pending_transfers", params: payload, as: :json
     post "/api/v1/pending_transfers", params: payload.merge(value: "8.0"), as: :json
