@@ -16,10 +16,11 @@ class TransferService
   # @param path [Array<String>] ordered addresses from sender to receiver
   # @param fee_payer [String] "sender" or "receiver"
   # @param extra_data [String, nil] app-specific metadata (JSON)
+  # @param idempotency_key [String, nil] unique write key supplied by the caller
   # @return [Hash] { operation:, events:, total_fees:, path: }
   def self.execute(network:, sender_address:, receiver_address:, value:,
                    max_fee: BigDecimal("0"), path: nil, fee_payer: "sender",
-                   extra_data: nil)
+                   extra_data: nil, idempotency_key: nil)
     raise "Network is frozen" if network.frozen?
     raise "Value must be positive" unless value > 0
 
@@ -103,6 +104,7 @@ class TransferService
           path: path,
           fee_payer: fee_payer
         },
+        idempotency_key: idempotency_key,
         multi_hop_id: multi_hop_id,
         fee_amount: result[:total_fees],
         status: "applied"

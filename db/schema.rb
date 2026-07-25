@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_15_200000) do
+ActiveRecord::Schema[7.2].define(version: 2026_07_25_000000) do
   create_table "currency_networks", charset: "utf8mb4", force: :cascade do |t|
     t.string "address", limit: 42, null: false
     t.string "name", null: false
@@ -72,8 +72,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_200000) do
     t.text "signature"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "idempotency_key", limit: 64
+    t.bigint "operation_id"
     t.index ["currency_network_id"], name: "index_pending_transfers_on_currency_network_id"
     t.index ["from_address"], name: "index_pending_transfers_on_from_address"
+    t.index ["idempotency_key"], name: "index_pending_transfers_on_idempotency_key", unique: true
+    t.index ["operation_id"], name: "index_pending_transfers_on_operation_id"
     t.index ["status"], name: "index_pending_transfers_on_status"
     t.index ["to_address"], name: "index_pending_transfers_on_to_address"
   end
@@ -152,6 +156,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_200000) do
 
   add_foreign_key "operations", "currency_networks"
   add_foreign_key "pending_transfers", "currency_networks"
+  add_foreign_key "pending_transfers", "operations"
   add_foreign_key "trustline_events", "currency_networks"
   add_foreign_key "trustline_events", "operations"
   add_foreign_key "trustline_update_requests", "trustlines"

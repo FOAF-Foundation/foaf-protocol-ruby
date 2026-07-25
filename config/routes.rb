@@ -54,7 +54,10 @@ Rails.application.routes.draw do
       get "transfers", to: "transfers#show"   # ?transactionHash=...
 
       # === PENDING TRANSFERS (FOAF addition) ===
-      resources :pending_transfers, only: [:index, :create] do
+      resources :pending_transfers, only: [:index, :show, :create] do
+        collection do
+          get "by_idempotency_key", to: "pending_transfers#by_idempotency_key"
+        end
         member do
           put "confirm", to: "pending_transfers#confirm"
           put "reject", to: "pending_transfers#reject"
