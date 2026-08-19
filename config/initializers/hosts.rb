@@ -12,3 +12,8 @@ Rails.application.config.hosts << "api.foaf.io"
 # Beta tier (Contabo): public hostname + the internal Coolify network alias
 Rails.application.config.hosts << "bpi.foaf.io"
 Rails.application.config.hosts << "foaf-protocol-beta"
+
+# Demo tier (Contabo): temp verification host + the internal Coolify network alias
+# (dpi.foaf.io, the final demo host, is already allowed above.)
+Rails.application.config.hosts << "dpi-temp.foaf.io"
+Rails.application.config.hosts << "foaf-protocol-demo"
