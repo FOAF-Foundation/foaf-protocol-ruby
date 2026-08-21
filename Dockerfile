@@ -5,6 +5,7 @@ RUN apt-get update -qq && \
     build-essential \
     default-libmysqlclient-dev \
     default-mysql-client \
+    libpq-dev \
     git \
     pkg-config \
     libsecp256k1-dev \
