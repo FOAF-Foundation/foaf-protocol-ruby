@@ -5,6 +5,7 @@ RUN apt-get update -qq && \
     build-essential \
     default-libmysqlclient-dev \
     default-mysql-client \
+    libpq-dev \
     git \
     pkg-config \
     libsecp256k1-dev \
@@ -20,6 +21,10 @@ RUN bundle install
 
 COPY . .
 
+RUN chmod +x docker-entrypoint.sh
+
 EXPOSE 3002
 
+# Entrypoint runs db:migrate on production boot (idempotent), then execs CMD.
+ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3002"]
