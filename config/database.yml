@@ -8,7 +8,7 @@ development:
 
 test:
   <<: *default
-  url: <%= ENV.fetch("DATABASE_URL_TEST", ENV["DATABASE_URL"]&.sub(/development/, "test") || "mysql2://root:foaf_dev_password@db:3306/foaf_protocol_test") %>
+  url: <%= ENV.fetch("DATABASE_URL_TEST", ENV["DATABASE_URL"]&.sub(/development/, "test") || "postgresql://postgres:foaf_dev_password@db:5432/foaf_protocol_test") %>
 
 production:
   <<: *default
