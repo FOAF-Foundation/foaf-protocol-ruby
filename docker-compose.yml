@@ -1,15 +1,15 @@
 services:
   db:
-    image: mysql:5.7
+    image: postgres:16
     environment:
-      MYSQL_ROOT_PASSWORD: foaf_dev_password
-      MYSQL_DATABASE: foaf_protocol_development
+      POSTGRES_PASSWORD: foaf_dev_password
+      POSTGRES_DB: foaf_protocol_development
     ports:
-      - "3307:3306"
+      - "5434:5432"
     volumes:
-      - foaf_db_data:/var/lib/mysql
+      - foaf_db_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d foaf_protocol_development"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -25,7 +25,7 @@ services:
       db:
         condition: service_healthy
     environment:
-      DATABASE_URL: mysql2://root:foaf_dev_password@db:3306/foaf_protocol_development
+      DATABASE_URL: postgresql://postgres:foaf_dev_password@db:5432/foaf_protocol_development
       RAILS_ENV: development
       RAILS_LOG_TO_STDOUT: "true"
       SECRET_KEY_BASE: foaf_dev_secret_key_base_not_for_production
