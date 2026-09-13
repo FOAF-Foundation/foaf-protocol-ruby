@@ -91,7 +91,7 @@ Consuming apps (like Growoperative) store both the public and private key per us
 FOAF is a standalone service with its own database. Consuming apps call it over HTTP.
 
 ```
-Growoperative (Rails)  ──HTTP──▶  FOAF Protocol (Rails, own MySQL DB)
+Growoperative (Rails)  ──HTTP──▶  FOAF Protocol (Rails, own Postgres DB)
 ```
 
 ### Docker
