@@ -1,0 +1,59 @@
+# This repo had no CI and no committed Gemfile.lock (both added alongside this
+# workflow), so this is the first real build/test signal it's ever had.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: RSpec
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: foaf_dev_password
+          POSTGRES_DB: foaf_protocol_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL_TEST: postgresql://postgres:foaf_dev_password@localhost:5432/foaf_protocol_test
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install native dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential libpq-dev git pkg-config libsecp256k1-dev libyaml-dev automake libtool
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.11
+          bundler-cache: true
+
+      - name: Prepare test database
+        run: bundle exec rails db:test:prepare
+
+      - name: Run RSpec
+        run: bundle exec rspec
