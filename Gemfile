@@ -10,7 +10,7 @@ gem "puma", "~> 6.0"
 gem "eth", "~> 0.5"
 
 # CORS
-gem "rack-cors", "~> 2.0"
+gem "rack-cors", "~> 3.0"
 
 # JSON serialization
 gem "jbuilder", "~> 2.7"
