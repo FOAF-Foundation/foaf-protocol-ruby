@@ -4,7 +4,7 @@ ruby "~> 3.2"
 
 gem "rails", "~> 7.1"
 gem "pg", "~> 1.5"
-gem "puma", "~> 6.0"
+gem "puma", "~> 8.0"
 
 # Crypto — secp256k1 signature verification
 gem "eth", "~> 0.5"
