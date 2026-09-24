@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    ignore:
+      # Rails moves through the fleet's staged walk (7.1 -> 7.2 -> 8.0 -> 8.1,
+      # load_defaults + suite green at each step), tracked in
+      # rheos/railsbackend#55. A raw one-shot minor/major bump from here would
+      # skip it, the way onloan-api#10 did. Patch releases still come through.
+      - dependency-name: "rails"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+  # CI pins actions by major tag; this keeps those tags current.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
