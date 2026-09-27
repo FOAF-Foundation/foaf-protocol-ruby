@@ -4,13 +4,13 @@ ruby "3.4.11"
 
 gem "rails", "~> 8.1.4"
 gem "pg", "~> 1.5"
-gem "puma", "~> 6.0"
+gem "puma", "~> 8.0"
 
 # Crypto — secp256k1 signature verification
 gem "eth", "~> 0.5"
 
 # CORS
-gem "rack-cors", "~> 2.0"
+gem "rack-cors", "~> 3.0"
 
 # JSON serialization
 gem "jbuilder", "~> 2.7"
@@ -23,5 +23,5 @@ end
 
 group :test do
   gem "database_cleaner-active_record", "~> 2.0"
-  gem "shoulda-matchers", "~> 5.0"
+  gem "shoulda-matchers", "~> 8.0"
 end
