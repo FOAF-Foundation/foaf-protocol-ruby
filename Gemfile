@@ -25,3 +25,7 @@ group :test do
   gem "database_cleaner-active_record", "~> 2.0"
   gem "shoulda-matchers", "~> 8.0"
 end
+
+# Error tracking. Inert without SENTRY_DSN, which is set only on production.
+gem "sentry-ruby", "~> 7.0"
+gem "sentry-rails", "~> 7.0"
