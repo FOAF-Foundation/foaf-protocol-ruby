@@ -174,12 +174,13 @@ GEM
       prettyprint
     prettyprint (0.2.0)
     prism (1.9.0)
-    puma (6.6.1)
+    puma (8.0.2)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.7)
-    rack-cors (2.0.2)
-      rack (>= 2.0.0)
+    rack-cors (3.0.0)
+      logger
+      rack (>= 3.0.14)
     rack-session (2.1.2)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -255,8 +256,8 @@ GEM
       ffi-compiler (>= 1.0, < 2.0)
       rake (~> 13)
     securerandom (0.4.1)
-    shoulda-matchers (5.3.0)
-      activesupport (>= 5.2.0)
+    shoulda-matchers (8.0.1)
+      activesupport (>= 7.2)
     thor (1.5.0)
     timeout (0.6.1)
     tsort (0.2.0)
@@ -280,11 +281,11 @@ DEPENDENCIES
   factory_bot_rails (~> 6.0)
   jbuilder (~> 2.7)
   pg (~> 1.5)
-  puma (~> 6.0)
-  rack-cors (~> 2.0)
+  puma (~> 8.0)
+  rack-cors (~> 3.0)
   rails (~> 8.1.4)
   rspec-rails (~> 8.0)
-  shoulda-matchers (~> 5.0)
+  shoulda-matchers (~> 8.0)
 
 RUBY VERSION
    ruby 3.4.11p137
