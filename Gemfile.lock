@@ -113,6 +113,7 @@ GEM
     factory_bot_rails (6.5.1)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
+    ffi (1.17.4)
     ffi (1.17.4-x86_64-linux-gnu)
     ffi-compiler (1.4.2)
       ffi (>= 1.15.5)
@@ -165,9 +166,13 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.5)
+    nokogiri (1.19.4)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.19.4-x86_64-linux-gnu)
       racc (~> 1.4)
     openssl (3.3.3)
+    pg (1.6.3)
     pg (1.6.3-x86_64-linux)
     pkg-config (1.6.5)
     pp (0.6.4)
@@ -256,6 +261,13 @@ GEM
       ffi-compiler (>= 1.0, < 2.0)
       rake (~> 13)
     securerandom (0.4.1)
+    sentry-rails (7.0.0)
+      railties (>= 5.2.0)
+      sentry-ruby (~> 7.0.0)
+    sentry-ruby (7.0.0)
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      logger
     shoulda-matchers (8.0.1)
       activesupport (>= 7.2)
     thor (1.5.0)
@@ -272,6 +284,7 @@ GEM
     zeitwerk (2.8.3)
 
 PLATFORMS
+  ruby
   x86_64-linux
 
 DEPENDENCIES
@@ -285,6 +298,8 @@ DEPENDENCIES
   rack-cors (~> 3.0)
   rails (~> 8.1.4)
   rspec-rails (~> 8.0)
+  sentry-rails (~> 7.0)
+  sentry-ruby (~> 7.0)
   shoulda-matchers (~> 8.0)
 
 RUBY VERSION
