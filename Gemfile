@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "3.4.11"
 
 gem "rails", "~> 8.1.4"
-gem "pg", "~> 1.5"
+gem "pg", "~> 1.7"
 gem "puma", "~> 8.0"
 
 # Crypto — secp256k1 signature verification
